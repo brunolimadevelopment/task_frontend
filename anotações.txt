@@ -1,0 +1,652 @@
+1º create-react-app tasks_frontend --template=typescript
+2º instalar as libs
+    
+    - axios 
+    - bootstrap 
+    - react-bootstrap 
+    - react-router-dom
+    
+    yarn add react-bootstrap bootstrap axios react-router-dom
+
+3º Instalação da tipagem do react-router-dom como estamos trabalhando com typescript vai precisar.
+    
+    yarn add @types/react-router-dom -D 
+
+4º Delete os arquivos que não precisa e apaga os imports dos arquivos que foram removido.
+
+    - App.css          ❌
+    - App.test.tsx     ❌
+    - index.css        ❌
+    - logo.svg         ❌
+    - serviceWorker.ts ❌
+    - setupTest.ts     ❌
+
+5º Impot o bootstrap no arquivo index.tsx
+
+    // https://react-bootstrap.github.io/getting-started/introduction/
+
+
+
+Configuração [OK]
+
+
+
+6º Configurar o Service
+
+    - Cria uma pasta services dentro de src e dentro dela crie um arquivo chamado: api.ts
+
+    - No arquivo api.ts iremos configurar o axios
+
+7º Configurar as Rotas da Aplicação
+
+    - Dentro de src cria uma pasta chamada pages e dentro dela uma pasta chamada Task 
+
+    - Dentro da pasta Task crie um arquivo chamado index.tsx
+
+8º No arquivo index.tsx digite rfc (react fashinal company ) para criar a estrutura padrão de import
+
+    - Instale a extensão Rocketseat ReactJS para usar os snippets
+
+9º Crie um arquivo routes.tsx na raiz
+
+    - Configure usando o snippet rfc 
+    - Em seguida import os componentes do 'react-router-dom' que vamos utilizar:
+
+        - Switch, 
+        - Router
+        - Route  
+
+10º Definimos Routes como uma constante e retornamos um:
+
+    <Switch>
+        <Route path="/" component={} />
+        <Route path="/tarefas" component={} />
+    </Switch>
+
+11º Dentro da pasta pages vamos criar a page home
+
+    - cria a pasta home e dentro dela o index.tsx e configure com o snippet rfc e retorne o nome da pagina.
+
+12º No arquivo de routes.tsx vamos colocar o atributo exact no <Switch>:
+
+    <Switch>
+        <Route path="/" exact component={Home} />
+        <Route path="/tarefas" exact component={Tasks} />
+    </Switch>
+    
+    Em seguida import Tasks from './pages/Tasks'
+
+    E por ultimo export Routes;
+
+14º Dentro do arquivo App.tsx import o 'react-router-dom' e usaremos o component BrowserRouter
+
+    import { BrowserRouter } from 'react-router-dom';
+
+    e no retorno do App colocamos:
+
+        <BrowserRouter>
+            <h1>Sistema Tasks</h1>
+        </BrowserRouter>
+    
+    Agora import Routes from './routes'; e dentro do component <BrowserRouter> coloque o component <Routes />
+    Ficando da seguinte forma:
+
+        <BrowserRouter>
+            <Routes />
+        </BrowserRouter>
+
+
+
+Configuração de ROTAS [OK]
+
+
+
+15º Add a lib Cors na API (Back-end)
+
+    - Vamos criar uma navbar, vamos utilizar a do bootstrap
+
+    - copie o html da navbar
+
+    - https://react-bootstrap.github.io/components/navbar/
+
+    Agora dentro do src criaremos uma pasta chamada: components e dentro dela criaremos uma pasta chamada Header.
+
+    Dentro da pasta Header criaremos um arquivo chamado index.tsx
+
+    No arquivo index.tsx criaremos a estrutura padrão com o rfc snippet e no retorno da função colamos o html da navbar do bootstrap
+
+    Ficando dessa forma:
+
+        return (
+            <Navbar bg="light" expand="lg">
+                <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Collapse id="basic-navbar-nav">
+                    <Nav className="mr-auto">
+                    <Nav.Link href="#home">Home</Nav.Link>
+                    <Nav.Link href="#link">Link</Nav.Link>
+                    <NavDropdown title="Dropdown" id="basic-nav-dropdown">
+                        <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+                        <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
+                        <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+                        <NavDropdown.Divider />
+                        <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+                    </NavDropdown>
+                    </Nav>
+                    <Form inline>
+                    <FormControl type="text" placeholder="Search" className="mr-sm-2" />
+                    <Button variant="outline-success">Search</Button>
+                    </Form>
+                </Navbar.Collapse>
+            </Navbar>
+        );
+
+    ATENÇÃO: OLHA QUE LEGAL!
+
+    Agora vamos importar esses components da navbar que são do bootstrapInsira usando o import 
+
+    Insira o import { } from 'react-bootstrap'
+
+    Agora observe que o html que colamos no retorno da função está sublinhado como um erro.
+    Clique dentro da tag do HTML <Navbar..> e aparecerá do lado esquedo uma lampada azul.
+    Agora clique na lampada e na opção:
+
+        Add all missing imports
+
+    Agora todos os componentes serão adicionados dentro do { }
+
+        import { Button, Form, FormControl, Nav, Navbar, NavDropdown } from 'react-bootstrap'
+
+16º No arquivo App.tsx vamos importar o component Header
+
+    import Header from './components/Header'
+
+    e em seguida usamos o component Header dentro do component <BrowserRouter>
+    ficando dessa forma:
+
+        <BrowserRouter>
+            <Header />
+            <Routes />
+        </BrowserRouter>
+
+    Agora podemos visualizar nosso componente no navegador
+
+
+ATENÇÃO: Caso de o erro:
+
+    C:/Users/DELL/Desktop/tasks_frontend/node_modules/react-bootstrap/esm/index.d.ts
+    TypeScript error in C:/Users/DELL/Desktop/tasks_frontend/node_modules/react-bootstrap/esm/index.d.ts(2,1):
+    Declaration or statement expected.  TS1128
+
+        1 | export { default as Accordion } from './Accordion';
+    > 2 | export type { AccordionProps } from './Accordion';
+        | ^
+        3 | export { default as AccordionContext } from './AccordionContext';
+        4 | export { default as AccordionCollapse } from './AccordionCollapse';
+        5 | export type { AccordionCollapseProps } from './AccordionCollapse';
+
+    O motivo é a versão do typescript no npm
+    Execute:
+
+        npm i typescript@3.8
+
+    e irá resolver
+
+17º Remova os componentes html e dos imports:
+   
+    import { ❌ Button, ❌ Form, ❌ FormControl, ✅ Nav, ✅ Navbar, ❌ NavDropdown } from 'react-bootstrap';
+
+    - NavDropdown ❌
+    - Form ❌
+
+    Agora ajuste os href conforme é as rotas que criamos ficando da seguinte forma:
+
+        <Nav.Link href="/">Início</Nav.Link>
+        <Nav.Link href="/tarefas">Tarefas</Nav.Link>
+
+    Precisamos import o 'react-router-dom' no arquivo index.tsx do component Header/index.tsx para quando clicarmos no menu não carregar a pagina
+    Usaremos o component Link do 'react-router-dom';
+
+        import { Link } from 'react-router-dom';
+
+    e nos Nav.Link trocamos para:
+
+        <Nav.Item as={Link} className="nav-link" to="/">Início</Nav.Item>
+        <Nav.Item as={Link} className="nav-link" to="/tarefas">Tarefas</Nav.Item>
+
+    Pronto os links das Rotas estão ok agora.
+
+    Agora vamos alterar a cor do componente Header.
+    Bem simples basta inserir esses atributos na tag
+
+        <Navbar bg="dark" variant="dark" expand="lg">
+
+    
+18º SE APARECER O ERRO:
+
+    C:/Users/DELL/Desktop/tasks_frontend/src/index.tsx
+    TypeScript error in C:/Users/DELL/Desktop/tasks_frontend/src/index.tsx(2,22):
+    Could not find a declaration file for module 'react-dom'. 'C:/Users/DELL/Desktop/tasks_frontend/node_modules/react-dom/index.js' implicitly has an 'any' type.
+    If the 'react-dom' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react-dom`  TS7016
+
+    1 | import React from 'react';
+  > 2 | import ReactDOM from 'react-dom';
+      |                      ^
+    3 | import 'bootstrap/dist/css/bootstrap.min.css';
+    4 | import App from './App';
+
+    siga esse help:
+
+        https://stackoverflow.com/questions/41462729/typescript-react-could-not-find-a-declaration-file-for-module-react-material
+
+    Dentro do meu projeto, criei uma pasta chamada @typese adicionei-a a tsconfig.json para encontrar todos os tipos necessários. Então, parece um pouco com isso -
+
+        dentro do tsconfig.json add:
+
+            "typeRoots": [
+                "../node_modules/@types",
+                "../@types"
+            ]
+
+    E dentro dele criei um arquivo chamado alltypes.d.ts. Para encontrar os tipos desconhecidos dele. então para mim esses eram os tipos desconhecidos e eu adicionei lá.
+
+        dentro do arquivo alltypes.d.ts add:
+
+            declare module 'react-materialize';
+            declare module 'react-router';
+            declare module 'flux';
+            declare module 'react-router-dom';
+            declare module 'react-dom';
+
+        o bizu é ir add os component/modulos que dão erro
+
+    Agora rode npm start novamente e podemos visualizar no browser nossa aplicação.
+
+
+19º Adionar a lib Cors na API ( backend )
+
+    rode a api yarn dev
+
+20º MONTANDO A TABLE NO FRONTEND PARA EXIBIR OS DADOS DA API
+
+    - Em pages/home no index.tsx no retun da função insira o codigo:
+    - A estrutura da tabela utilizada: https://react-bootstrap.github.io/components/table/
+
+        return (
+            <div className="container">
+            <br/>
+            <h1>Tasks page</h1>
+            <br/>
+            <Table striped bordered hover>
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Username</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                    <td>@mdo</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Jacob</td>
+                    <td>Thornton</td>
+                    <td>@fat</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td colSpan={2}>Larry the Bird</td>
+                    <td>@twitter</td>
+                </tr>
+                </tbody>
+            </Table>
+            </div>
+        );
+
+
+    Vamos dinamizar agora
+
+    Dentro do body da table insira:
+
+        <tbody>
+
+            {
+                tasks.map(task => (
+                    <tr key={ task.id }>
+                        <td>{ task.id }</td>
+                        <td>{ task.title }</td>
+                        <td>{ task.updated_at }</td>
+                        <td>
+                            <Badge variant={ task.finished ? 'success' : 'warning' }>
+                                { task.finished ? 'FINALIZADO' : 'PENDENTE' }
+                            </Badge>
+                        </td>
+                        <td></td>  
+                    </tr>
+                ))
+            }
+        </tbody>
+
+    Para centralizar o conteudo da tabela insira 
+
+        className="text-center" na tag <Table>
+
+    Formatando a data 
+
+        2020-10-04T15:50:31.703Z
+
+    Vamos instalar uma lib do node para isso chamada moment
+
+        yarn add moment
+
+    Import o moment no arquivo src/pages/Tasks/index.tsx
+
+        import moment from 'moment';
+
+    Crie uma função antes do return
+
+        function formateDate(date: Date) {
+            return moment(date).format("DD/MM/YYYY");
+        }
+
+    Agora chame a função
+
+        <td>{ formateDate(task.updated_at) }</td>
+
+
+    OBS: se der algum erro ao importar o moment
+
+        import moment from 'moment';
+
+    add no package.json
+
+        "resolutions": {
+            "moment": "2.24.0"
+        }
+
+        e altere a versão nas dependencias
+
+            "moment": "2.24.0",
+
+    https://github.com/moment/moment/issues/5486
+
+    issue: 
+
+        try changing to "moment": "2.24.0", make sure that there isn't a ^ in it. 
+        delete node_models and re npm install. also if you have package-lock.json you may need to delete it. 
+        Otherwise npm will keep installing 2.25
+
+
+21º Pagina de CADASTRO
+
+    dentro de src/Tasks/ criamos uma pasta chamada Form com um index.tsx
+
+    Copiaremos todo codigo do arquivo index.ts da pasta Task e removemos o import
+
+        import moment from 'moment';
+    
+    E os components Badge, Table
+        
+        import { Button } from 'react-bootstrap';
+
+    Removemos o async await e a função de formata data deixando apenas o return 
+    da seguinte forma:
+
+        return (
+            <div className="container">
+                <br/>
+                <div className="task-header">
+                    <h1>Tasks page</h1>
+                    <Button variant="dark" size="sm">Voltar</Button>
+                </div>
+                <br/>
+                <div className="container">
+                    <Form>
+                        <Form.Group>
+                            <Form.Label>Título</Form.Label>
+                            <Form.Control type="text" />
+
+                        </Form.Group>
+
+                        <Form.Group>
+                            <Form.Label>Descrição</Form.Label>
+                            <Form.Control as="textarea" rows={3} />
+                        </Form.Group>
+                        <Button variant="dark" type="submit">
+                            Salvar
+                        </Button>
+                    </Form>
+                </div>
+            </div>
+        );
+
+        Utilize o telisence do vscode para importar os components do bootstrap
+
+
+    Add import { useHistory } from 'react-router-dom'; // { useHistory } um hook do react
+    no arquivo src/pages/Tasks/index.tsx
+
+    Crie uma contante:
+    
+        const history = useHistory();
+    
+    E uma função:
+
+        function newTask() {
+            history.push('/tarefas_cadastro');
+        }
+    
+    E add onClick={newTask}
+
+        <div className="task-header">
+            <h1>Tasks page</h1>
+            <Button variant="dark" size="sm" onClick={ newTask }>Nova Tarefa</Button>
+        </div>
+
+
+22º Submit event
+
+    No arquivo da pasta src/pages/Tasks/Form/index.tsx
+        Add import { useHistory } from 'react-router-dom'; // { useHistory } um hook do react
+        
+
+        // Tipagem - Quando estamos trabalhando com react com typescript e queremos tipar alguma coisa
+        // Trabalhamos com o conceito de interface
+        interface Itask {
+            // id: number;
+            title: string;
+            description: string;
+            // finished: boolean;
+            // created_at: Date;
+            // updated_at: Date;
+            // os campos comentados são inseridos automaticamente, então não precisamos
+        }
+
+        Deixe o component Tasks da seguinte forma:
+
+        const Tasks: React.FC = () => {
+
+            const history = useHistory();
+
+            const [model, setModel] = useState<Itask>({
+                title: '',
+                description: ''
+            });
+
+            // e: ChangeEvent<HTMLInputElement> que é do react, ele recebe o tipo do campo do html que mexemos
+            function updatedModel(e: ChangeEvent<HTMLInputElement>) {
+
+                // Desistruturação do que ja tiver no model.
+                setModel({
+                    ...model, // rest operator
+                    // a chave title e description vai ser o nme de cada campo e 
+                    // em seguida atribuimos o value do campo ao valor da chave
+                    [e.target.name]: e.target.value 
+                })
+            };
+
+            async function onSubmit(e: ChangeEvent<HTMLFormElement>) {
+                e.preventDefault()
+
+                const response = await api.post('/tasks', model); // Envia os dados para a API
+
+                console.log(response);
+
+            }
+
+            function back() {
+                history.goBack();
+            }
+
+            return (
+                <div className="container">
+                    <br/>
+                    <div className="task-header">
+                        <h1>New Task</h1>
+                        <Button variant="dark" size="sm" onClick={back}>Voltar</Button>
+                    </div>
+                    <br/>
+                    <div className="container">
+                        <Form onSubmit={onSubmit}>
+                            <Form.Group>
+                                <Form.Label>Título</Form.Label>
+                                <Form.Control type="text" name="title" onChange={(e: ChangeEvent<HTMLInputElement>) => updatedModel(e)} />
+
+                            </Form.Group>
+
+                            <Form.Group>
+                                <Form.Label>Descrição</Form.Label>
+                                <Form.Control as="textarea" rows={3} name="description" onChange={(e: ChangeEvent<HTMLInputElement>) => updatedModel(e)} />
+                            </Form.Group>
+                            <Button variant="dark" type="submit">
+                                Salvar
+                            </Button>
+                        </Form>
+                    </div>
+                </div>
+            );
+        }
+
+        export default Tasks;
+
+
+23º // PAGE VISUALIZAR
+
+    Dentro da pata Tasks crie uma pasta chamada Detail e um arquivo dentro chamado index.tsx
+
+    digite o snippet rfc para criar a estrutura do component
+    e insira o codigo no return 
+
+        return (
+            <div className="container">
+                <br/>
+                <div className="task-header">
+                    <h1>Tasks Detail</h1>
+                    <Button variant="dark" size="sm">Voltar</Button>
+                </div>
+                <br/>
+                
+            </div>
+        );
+
+    Use o intelisense do vscode para import dos component
+
+    no arquivo routes da pasta src import o component criado e os demais imports
+
+    import TaskDetail from './pages/Tasks/Detail';
+    import moment from 'moment';
+    import api from '../../../services/api';
+
+    const history = useHistory();
+    const { id } = useParams();
+    const [task, setTask] = useState<ITask>();
+
+    useEffect(() => {
+        findTask()
+    }, [id]);
+
+    function back() {
+        history.goBack();
+    }
+
+    async function findTask() {
+        // tipando api.get() com o <Itask> teremos todos os campos em response.data
+        const response = await api.get<ITask>(`/tasks/${id}`); // quando o ID mudar chama o useEffect
+        console.log(response);
+        setTask(response.data);
+    };
+
+    function formateDate(date: Date | undefined) {
+        return moment(date).format("DD/MM/YYYY");
+    };
+
+    return (
+        <div className="container">
+            <br/>
+            <div className="task-header">
+                <h1>Tasks Detail</h1>
+                <Button variant="dark" size="sm" onClick={back}>Voltar</Button>
+            </div>
+            <br/>
+            <Card>
+                <Card.Body>
+                    <Card.Title>{ task?.title }</Card.Title>
+                    <Card.Text>
+                        { task?.description }
+                        <br/>
+                        <Badge variant={task?.finished ? "success" : "warning"}>{ task?.finished ? 'FINALIZADO' : 'PENDENTE'}</Badge>
+                        <br/>
+                        <strong>Data de Cadastro: </strong>
+                        <Badge variant="info">{ formateDate(task?.created_at) }</Badge>
+                        <br/>
+                        <strong>Data de Atualização: </strong>
+                        <Badge variant="info">{ formateDate(task?.updadet_at) }</Badge>
+                    </Card.Text>
+                </Card.Body>
+            </Card>  
+            
+        </div>
+    );
+
+
+    e crie uma rota para o component passando o id como parametro
+
+        <Route path="/tarefas/:id" exact component={TaskDetail} />
+
+    
+24º MÉTODO PARA FINALIZAR TASK
+
+    Em src/pages/Tasks/index.tsx
+
+    Crie o MÉTODO
+
+    // Finalizar task
+    async function finishedTask(id: number) {
+        await api.patch(`/tasks/${id}`); // atualiza a task pelo ID atraves da API
+        loadTasks();
+    }
+
+    Nos ctas das ações insira
+    Se task estiver finalizada ative o: disabled={task.finished} 
+    Ao clicar em finalizar: onClick={() => finishedTask(task.id)}
+
+    <Button size="sm" disabled={task.finished} onClick={() => editTask(task.id)}>Editar</Button>{' '}
+    <Button size="sm" disabled={task.finished} variant="success" onClick={() => finishedTask(task.id)}>Finalizar</Button>{' '}
+    
+
+25º MÉTODO PARA DELETAR TASK
+
+    Em src/pages/Tasks/index.tsx 
+    Insira o método de deletar:
+    
+    // Remove task
+    async function deleteTask(id: number) {
+        await api.delete(`/tasks/${id}`); // deleta a task pelo ID atraves da API
+        loadTasks();
+    }
